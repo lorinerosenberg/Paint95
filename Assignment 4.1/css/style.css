@@ -1,0 +1,66 @@
+body{	
+	font-family: "fresca";
+	margin-left: 40px;
+}
+#myToolbox{
+	height: 100px;
+	width:900px;
+	margin-top: 30px;
+}
+button{
+	width: 50px;
+	height: 50px;
+	vertical-align: top;
+	border-radius: 20px;
+	font-size: 20px;
+}
+#moreColors{
+	width: 50px;
+	height: 50px;
+	border-radius: 10px;
+	vertical-align: top;
+	margin-left: 20px;
+}
+h3{
+	margin-left: 40px;
+}
+h4{
+	font-size: 20px;
+	text-align: center;
+}
+#eraserImg{
+	width: 100%;
+	vertical-align: top;
+}
+#eraser{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+#brushSize{
+	display: inline-block;
+	padding: 5px;
+	font-size: 15px;
+}
+#clearCanvas{
+	width: 100px;
+	margin-left: 30px;
+	font-size: 18px;
+}
+#setDimensions{
+	height: 70px;
+	display: inline-block;
+	width: 297px;
+	text-align: center;
+	}
+input{
+	display: inline-block;
+	width: 100px;
+	vertical-align: bottom;
+	margin-bottom: 10px;
+}
+#submit{
+	width: 40px;
+	height: 25px;
+	margin-left: 5px;
+	font-size: 12px;
+}
