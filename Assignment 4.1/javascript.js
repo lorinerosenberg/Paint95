@@ -12,10 +12,8 @@ var title = document.createElement('h3');
 title.innerHTML = "Lorine's Painting Shed";
 document.body.appendChild(title);
 
-createCanvas();
 
-//create canvas layer
-function createCanvas(){
+
 var canvas = document.createElement("canvas");
 canvas.id = "myCanvas";
 canvas.width = widthValue;
@@ -26,12 +24,21 @@ canvas.style.border = "1px solid";
 
 //append canvas to document body
 document.body.appendChild(canvas);
-}
+
+
+//set variable for canvas element
+var canvasLayer = document.getElementById("myCanvas");
+console.log(canvasLayer);
+
+// get canvas 2D context 
+var ctx = canvasLayer.getContext('2d');
 
 //save and load tools
 var saveLoad = document.createElement("div");
 saveLoad.id = "saveLoad";
-
+var clear = document.createElement("button");
+clear.id = "clearCanvas";
+clear.textContent = "Start Over";
 var save = document.createElement("button");
 save.id = "save";
 save.textContent = "Save";
@@ -41,6 +48,7 @@ load.textContent = "Load";
 
 
 document.body.appendChild(saveLoad);
+saveLoad.appendChild(clear);
 saveLoad.appendChild(save);
 saveLoad.appendChild(load);
 
@@ -50,22 +58,22 @@ var setDimensions = document.createElement("div");
 setDimensions.id = "dimensionsDiv";
 
 var dimensionsText = document.createElement("h4");
-var width = document.createElement("INPUT");
-var height = document.createElement("INPUT");
+var inputwidth = document.createElement("INPUT");
+var inputheight = document.createElement("INPUT");
 var submit = document.createElement("button");
 submit.id = "submit";
 submit.textContent = "set";
-width.type = "text";
-height.type = "text";
+inputwidth.type = "text";
+inputheight.type = "text";
 dimensionsText.innerHTML = "Set your Dimensions";
 
-width.placeholder = "Width";
-height.placeholder = "Height";
+inputwidth.placeholder = "Width";
+inputheight.placeholder = "Height";
 
 document.body.appendChild(setDimensions);
 setDimensions.appendChild(dimensionsText);
-setDimensions.appendChild(width);
-setDimensions.appendChild(height);
+setDimensions.appendChild(inputwidth);
+setDimensions.appendChild(inputheight);
 setDimensions.appendChild(submit);
 
 //create toolbox
@@ -80,12 +88,6 @@ toolboxText.innerHTML = "My toolbox";
 document.body.appendChild(toolbox);
 toolbox.appendChild(toolboxText);
 
-//set variable for canvas element
-var canvasLayer = document.getElementById("myCanvas");
-console.log(canvasLayer);
-
-// get canvas 2D context 
-var ctx = canvasLayer.getContext('2d');
 
 //set different colours as global variables
 var colorBlack = "#000000";
@@ -151,13 +153,7 @@ toolbox.appendChild(bigger);
 toolbox.appendChild(brushSize);
 toolbox.appendChild(smaller);
 
-//create button to clear canvas
-var clear = document.createElement("button");
 
-clear.id = "clearCanvas";
-clear.textContent = "Start Over";
-
-toolbox.appendChild(clear);
 
 
 //function to get coordinates of mouse click
@@ -208,10 +204,23 @@ ctx.fill();
 
 //function to set dimensions
 function canvasSize(){
-	widthValue = width.value;
-	heightValue = height.value;
-	console.log(widthValue);
-	console.log(heightValue);
+	canvas.width = inputwidth.value;
+	canvas.height = inputheight.value;
+}
+
+//function to save an image
+function saveImage(){
+	var image = canvas.toDataURL();
+	localStorage.setItem("savedImage", JSON.stringify(image));
+	console.log(image);
+}
+//function to load an image
+function loadImage(){
+	imageData = localStorage.getItem("savedImage");
+	if (imageData !== null) {
+   	 	var data = JSON.parse(imageData);
+    	ctx.putImageData(data, 0, 0);
+	}
 }
 
 
@@ -244,4 +253,13 @@ clear.addEventListener('click', clearCanvas);
 
 //event listener to set dimensions
 submit.addEventListener('click', canvasSize);
+
+//event listener to save and load
+save.addEventListener('click', saveImage);
+load.addEventListener('click', loadImage);
+
+
+
+
+
 
