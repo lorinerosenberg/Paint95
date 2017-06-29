@@ -28,6 +28,46 @@ canvas.style.border = "1px solid";
 document.body.appendChild(canvas);
 }
 
+//save and load tools
+var saveLoad = document.createElement("div");
+saveLoad.id = "saveLoad";
+
+var save = document.createElement("button");
+save.id = "save";
+save.textContent = "Save";
+var load = document.createElement("button");
+load.id = "load";
+load.textContent = "Load";
+
+
+document.body.appendChild(saveLoad);
+saveLoad.appendChild(save);
+saveLoad.appendChild(load);
+
+
+//create dimension tools
+var setDimensions = document.createElement("div");
+setDimensions.id = "dimensionsDiv";
+
+var dimensionsText = document.createElement("h4");
+var width = document.createElement("INPUT");
+var height = document.createElement("INPUT");
+var submit = document.createElement("button");
+submit.id = "submit";
+submit.textContent = "set";
+width.type = "text";
+height.type = "text";
+dimensionsText.innerHTML = "Set your Dimensions";
+
+width.placeholder = "Width";
+height.placeholder = "Height";
+
+document.body.appendChild(setDimensions);
+setDimensions.appendChild(dimensionsText);
+setDimensions.appendChild(width);
+setDimensions.appendChild(height);
+setDimensions.appendChild(submit);
+
 //create toolbox
 var toolbox = document.createElement("div");
 var toolboxText = document.createElement("h4");
@@ -119,6 +159,7 @@ clear.textContent = "Start Over";
 
 toolbox.appendChild(clear);
 
+
 //function to get coordinates of mouse click
 function getCoor(){
 x = event.clientX - 40;    // Get the horizontal coordinate
@@ -165,6 +206,13 @@ ctx.fillStyle = "white";
 ctx.fill();
 }
 
+//function to set dimensions
+function canvasSize(){
+	widthValue = width.value;
+	heightValue = height.value;
+	console.log(widthValue);
+	console.log(heightValue);
+}
 
 
 //event listener get coordinates when clicking on canvas
@@ -182,9 +230,10 @@ blue.addEventListener('click', function(){ctx.strokeStyle = colorBlue;});
 green.addEventListener('click', function(){ctx.strokeStyle = colorGreen;});
 purple.addEventListener('click', function(){ctx.strokeStyle = colorPurple;});
 orange.addEventListener('click', function(){ctx.strokeStyle = colorOrange;});
-moreColors.addEventListener('click', function(){ctx.strokeStyle = moreColors.value;});
+moreColors.addEventListener('change', function(){ctx.strokeStyle = moreColors.value;});
 eraser.addEventListener('click', function(){ctx.strokeStyle = "white";});
 eraser.addEventListener('click', function(){ctx.lineWidth = 50;});
+
 
 //add event listeners to change brush sizes
 bigger.addEventListener('click', biggerBrush);
@@ -193,4 +242,6 @@ smaller.addEventListener('click', smallerBrush);
 //event listener to clear canvas
 clear.addEventListener('click', clearCanvas);
 
+//event listener to set dimensions
+submit.addEventListener('click', canvasSize);
 
