@@ -161,16 +161,16 @@ function getCoor(){
 x = event.clientX - 40;    // Get the horizontal coordinate
 y = event.clientY - 50;     // Get the vertical coordinate
 var coor = "X coords: " + x + ", Y coords: " + y;
-console.log(coor);
+// console.log(coor);
 }
 
 //declare global variables for brush styles
-ctx.lineWidth = 30;
+ctx.lineWidth = 20;
 ctx.lineCap = 'round';
 
 //function to draw on click
 function draw(click){
-	console.log(click);
+	// console.log(click);
 
 	if (click.buttons ==! 1) return;
 
@@ -196,10 +196,7 @@ function smallerBrush(){
 
 //function to clear canvas
 function clearCanvas(){
-ctx.beginPath();
-ctx.rect(0, 0, 500, 500);
-ctx.fillStyle = "white";
-ctx.fill();
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 //function to set dimensions
@@ -211,17 +208,18 @@ function canvasSize(){
 //function to save an image
 function saveImage(){
 	var image = canvas.toDataURL();
-	localStorage.setItem("savedImage", JSON.stringify(image));
-	console.log(image);
+	localStorage.setItem("savedImage", image);
 }
 //function to load an image
 function loadImage(){
-	imageData = localStorage.getItem("savedImage");
-	if (imageData !== null) {
-   	 	var data = JSON.parse(imageData);
-    	ctx.putImageData(data, 0, 0);
-	}
+	var dataURL =localStorage.getItem("savedImage");
+	var img = new Image
+	img.src = dataURL;
+	img.onload = function(){
+		ctx.drawImage(img, 0, 0);
+	};
 }
+
 
 
 //event listener get coordinates when clicking on canvas
