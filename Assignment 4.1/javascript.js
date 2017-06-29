@@ -88,14 +88,24 @@ document.body.appendChild(toolbox);
 toolbox.appendChild(toolboxText);
 
 
-//set different colours as global variables
-var colorBlack = "#000000";
-var colorRed = "#ff0000";
-var colorYellow = "#ffff00";
-var colorBlue = "#0000ff";
-var colorGreen = "#00ff00";
-var colorPurple = "#cc0099";
-var colorOrange = "#ff6600";
+//set up colors
+var colors = ["#000000","#ff0000","#ffff00","#0000ff","#00ff00","#cc0099","#ff6600"];
+var currentColor = "#000000";
+
+
+//create color buttons
+for (var i=0; i<=colors.length-1;i++){
+	var colorBtn = document.createElement("button");
+	colorBtn.style.backgroundColor = colors[i];
+	colorBtn.value = colors[i];
+	toolbox.appendChild(colorBtn);
+	console.log(colors[i]);
+	colorBtn.addEventListener('click', function(event) {
+		currentColor = event.target.style.backgroundColor;
+		console.log(currentColor);
+	});
+}
+
 var colorWhite = "#737373";
 
 var moreColors = document.createElement("INPUT");
@@ -104,35 +114,14 @@ moreColors.id = "moreColors";
 
 
 //create color buttons
-var black = document.createElement("button");
-var red = document.createElement("button");
-var yellow = document.createElement("button");
-var blue = document.createElement("button");
-var green = document.createElement("button");
-var purple = document.createElement("button");
-var orange = document.createElement("button");
 var eraser = document.createElement("button");
 var eraserImg = document.createElement("img");
 
-black.style.backgroundColor = colorBlack;
-red.style.backgroundColor = colorRed;
-yellow.style.backgroundColor = colorYellow;
-blue.style.backgroundColor = colorBlue;
-green.style.backgroundColor = colorGreen;
-purple.style.backgroundColor = colorPurple;
-orange.style.backgroundColor = colorOrange;
 eraser.style.backgroundColor = colorWhite;
 eraser.id = "eraser"
 eraserImg.src = "http://www.haotu.net/up/4179/128/19-eraser.png";
 eraserImg.id = "eraserImg";
 
-toolbox.appendChild(black);
-toolbox.appendChild(red);
-toolbox.appendChild(yellow);
-toolbox.appendChild(blue);
-toolbox.appendChild(green);
-toolbox.appendChild(purple);
-toolbox.appendChild(orange);
 toolbox.appendChild(moreColors);
 toolbox.appendChild(eraser);
 eraser.appendChild(eraserImg);
@@ -174,6 +163,7 @@ function draw(click){
 	if (click.buttons ==! 1) return;
 
 	ctx.beginPath();
+	ctx.strokeStyle = currentColor;
 	//input previous coordinates and new coordinates
 	ctx.moveTo(x, y); // from position
   	getCoor();
@@ -213,7 +203,7 @@ function saveImage(){
 //function to load an image
 function loadImage(){
 	var dataURL =localStorage.getItem("savedImage");
-	var img = new Image
+	var img = new Image;
 	img.src = dataURL;
 	img.onload = function(){
 		ctx.drawImage(img, 0, 0);
@@ -230,13 +220,6 @@ canvasLayer.addEventListener('mouseenter', getCoor);
 canvasLayer.addEventListener('mousemove', draw);
 
 //add event listeners to change paint brush colors
-black.addEventListener('click', function(){ctx.strokeStyle = colorBlack;});
-red.addEventListener('click', function(){ctx.strokeStyle = colorRed;});
-yellow.addEventListener('click', function(){ctx.strokeStyle = colorYellow;});
-blue.addEventListener('click', function(){ctx.strokeStyle = colorBlue;});
-green.addEventListener('click', function(){ctx.strokeStyle = colorGreen;});
-purple.addEventListener('click', function(){ctx.strokeStyle = colorPurple;});
-orange.addEventListener('click', function(){ctx.strokeStyle = colorOrange;});
 moreColors.addEventListener('change', function(){ctx.strokeStyle = moreColors.value;});
 eraser.addEventListener('click', function(){ctx.strokeStyle = "white";});
 eraser.addEventListener('click', function(){ctx.lineWidth = 50;});
