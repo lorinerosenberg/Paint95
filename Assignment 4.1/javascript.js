@@ -13,7 +13,6 @@ title.innerHTML = "Lorine's Painting Shed";
 document.body.appendChild(title);
 
 
-
 var canvas = document.createElement("canvas");
 canvas.id = "myCanvas";
 canvas.width = widthValue;
@@ -62,7 +61,7 @@ var inputwidth = document.createElement("INPUT");
 var inputheight = document.createElement("INPUT");
 var submit = document.createElement("button");
 submit.id = "submit";
-submit.textContent = "set";
+submit.textContent = "Set";
 inputwidth.type = "text";
 inputheight.type = "text";
 dimensionsText.innerHTML = "Set your Dimensions";
@@ -201,8 +200,9 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 //function to set dimensions
 function canvasSize(){
-	canvas.width = inputwidth.value;
-	canvas.height = inputheight.value;
+	canvas.setAttribute('width',inputwidth.value);
+	canvas.setAttribute('height',inputheight.value);
+
 }
 
 //function to save an image
